@@ -1,6 +1,11 @@
 from __future__ import print_function, division
 
 import collections
+try:
+    from collections.abc import Callable
+    collections.Callable = Callable
+except ImportError:
+    pass
 from sympy.core.add import Add
 from sympy.core.basic import Basic, Atom
 from sympy.core.expr import Expr
