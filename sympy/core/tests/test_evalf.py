@@ -328,6 +328,22 @@ def test_implemented_function_evalf():
     del f._imp_     # XXX: due to caching _imp_ would influence all other tests
 
 
+def test_implemented_function_evalf_recursive():
+    # Test for issue where evalf does not call _imp_ recursively
+    from sympy.utilities.lambdify import implemented_function
+    f = implemented_function('f', lambda x: x ** 2)
+    g = implemented_function('g', lambda x: 2 * x)
+    
+    # Test that nested function calls are evaluated recursively
+    # f(g(2)) should evaluate to f(4) = 16
+    result = f(g(2)).evalf()
+    assert abs(float(result) - 16.0) < 1e-10
+    
+    # Clean up
+    del f._imp_
+    del g._imp_
+
+
 def test_evaluate_false():
     for no in [0, False]:
         assert Add(3, 2, evaluate=no).is_Add
