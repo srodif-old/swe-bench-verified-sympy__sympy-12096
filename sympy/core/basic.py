@@ -1,4 +1,4 @@
-"""Base class for all the objects in SymPy"""
+""" Base class for all the objects in SymPy """
 from __future__ import print_function, division
 try:
     from collections.abc import Mapping
